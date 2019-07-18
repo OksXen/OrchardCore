@@ -192,3 +192,10 @@ wwwroot
 !src/Templates/**/content/**
 .template.config/
 /OrchardCore.sln.GhostDoc.xml
+/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Cms.Module/obj/Debug/netstandard2.0
+/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Cms.Module/obj/Release/netstandard2.0
+/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Cms.Web/obj/Debug/netcoreapp2.2
+/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Cms.Web/obj/Release/netcoreapp2.2
+/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Mvc.Module/obj
+/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Mvc.Web/obj
+/src/Templates/OrchardCore.ProjectTemplates/content/OrchardCore.Templates.Theme/obj
