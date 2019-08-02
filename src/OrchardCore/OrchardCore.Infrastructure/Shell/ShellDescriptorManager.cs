@@ -53,6 +53,7 @@ namespace OrchardCore.Environment.Shell.Data.Descriptors
             if (_shellDescriptor == null)
             {
                 _shellDescriptor = await _session.Query<ShellDescriptor>().FirstOrDefaultAsync();
+                var descriptors = await _session.Query<ShellDescriptor>().ListAsync();
 
                 if (_shellDescriptor == null)
                 {

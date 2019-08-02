@@ -35,6 +35,8 @@ namespace OrchardCore.Setup
 
 		public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
+            app.UseExceptionHandler("/Setup/Error");
+
             var localizationOptions = serviceProvider.GetService<IOptions<RequestLocalizationOptions>>().Value;
 
             if (!String.IsNullOrEmpty(_defaultCulture))
@@ -51,6 +53,7 @@ namespace OrchardCore.Setup
             }
 
             app.UseRequestLocalization(localizationOptions);
+         
 
             routes.MapAreaRoute(
                 name: "Setup",
