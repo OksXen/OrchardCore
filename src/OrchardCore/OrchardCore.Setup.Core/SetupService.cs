@@ -78,8 +78,8 @@ namespace OrchardCore.Setup.Services
                 return executionId;
             }
             catch
-            {
-                context.ShellSettings.State = initialState;
+            {                
+                context.ShellSettings.State = initialState;                
                 throw;
             }
         }
@@ -150,8 +150,8 @@ namespace OrchardCore.Setup.Services
                         // tables. The tables should be rolled back if one of the steps is invalid,
                         // unless the recipe is executing?
 
-                        _logger.LogError(e, "An error occurred while initializing the datastore.");
-                        context.Errors.Add("DatabaseProvider", T["An error occurred while initializing the datastore: {0}", e.Message]);
+                        _logger.LogError(e, "An error occurred while initializing the datastore. Tables already exist or database was not found.");
+                        context.Errors.Add("DatabaseProvider", T["An error occurred while initializing the datastore: {0}. Tables already exist or database was not found.", e.Message]);
                         return;
                     }
 

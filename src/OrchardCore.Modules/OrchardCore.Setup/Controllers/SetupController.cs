@@ -80,24 +80,9 @@ namespace OrchardCore.Setup.Controllers
             return View(model);
         }
 
-        void WriteToCustomLog(string msg)
-        {
-            string path = @"D:\Users\fcodi\source\repos\OcrchardCore CMS\Codinera.NET ASPNET Core\Codinera.NET\bin\Release\netcoreapp2.2\publish_sandbox1\App_Data\custom.log";
-            string path2 = path;
-            var append = true;
-            //// Write the string array to a new file named "WriteLines.txt".
-            using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(path, append))
-            {                
-                   outputFile.WriteLine(msg);
-            }
-        }
-
         [HttpPost, ActionName("Index")]
         public async Task<ActionResult> IndexPOST(SetupViewModel model)
         {
-
-            WriteToCustomLog("line 99");
-
 
             if (!string.IsNullOrWhiteSpace(_shellSettings["Secret"]))
             {

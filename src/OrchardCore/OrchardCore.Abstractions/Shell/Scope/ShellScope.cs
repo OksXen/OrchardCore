@@ -112,6 +112,7 @@ namespace OrchardCore.Environment.Shell.Scope
                 return;
             }
 
+
             SemaphoreSlim semaphore;
 
             lock (_semaphores)
@@ -123,7 +124,7 @@ namespace OrchardCore.Environment.Shell.Scope
             }
 
             await semaphore.WaitAsync();
-
+         
             try
             {
                 // The tenant gets activated here.
@@ -136,27 +137,35 @@ namespace OrchardCore.Environment.Shell.Scope
                             return;
                         }
 
-                        scope.StartAsyncFlow();
+                        var logger = scope.ServiceProvider.GetService<ILogger<ShellScope>>();
 
-                        var tenantEvents = scope.ServiceProvider.GetServices<IModularTenantEvents>();
-
-                        foreach (var tenantEvent in tenantEvents)
+                        try
                         {
-                            await tenantEvent.ActivatingAsync();
-                        }
+                            scope.StartAsyncFlow();
 
-                        foreach (var tenantEvent in tenantEvents.Reverse())
+                            var tenantEvents = scope.ServiceProvider.GetServices<IModularTenantEvents>();
+
+                            foreach (var tenantEvent in tenantEvents)
+                            {
+                                await tenantEvent.ActivatingAsync();
+                            }
+
+                            foreach (var tenantEvent in tenantEvents.Reverse())
+                            {
+                                await tenantEvent.ActivatedAsync();
+                            }
+
+                            await scope.BeforeDisposeAsync();
+
+                            ShellContext.IsActivated = true;
+                        }
+                        catch(Exception ex)
                         {
-                            await tenantEvent.ActivatedAsync();
-                        }
-
-                        await scope.BeforeDisposeAsync();
-                    }
-
-                    ShellContext.IsActivated = true;
+                            logger.LogError(ex, ex.Message, null);
+                        }                       
+                    }                  
                 }
             }
-
             finally
             {
                 semaphore.Release();
